@@ -7,11 +7,11 @@ author:
 date: 2023-02-13
 categories: [ggplot, themes, lterdatasampler]
 citation: 
-  url: https://an-bui.github.io/posts/2023-02-13_EEMB-R-seminar_figures-in-ggplot/ 
+  url: https://an-bui.github.io/figs/posts/2023-02-13_EEMB-R-seminar_figures-in-ggplot/ 
 image: pwhittle-fiddler-crab.jpeg
 ---
 
-![Plots can be ugly, but all crabs are beautiful.](pwhittle-fiddler-crab.jpeg){fig-alt="A fiddler crab shows off their huge claw."}
+[![Plots can be ugly, but all crabs are beautiful. Photo by PWhittle, iNaturalist.](pwhittle-fiddler-crab.jpeg){fig-alt="A fiddler crab shows off their huge claw."}](https://www.inaturalist.org/observations/117767928)
 
 ## Introduction
 I gave a workshop for EEMB's R seminar where the topic was ostensibly "publication-ready figures in ggplot". However, since I've been thinking about these things a lot, I wanted to talk a bit about design and why it matters. There are two major questions I ask myself when making a figure (or any kind of visual):  
