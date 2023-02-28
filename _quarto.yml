@@ -4,6 +4,7 @@ project:
 
 website:
   title: "Plot thoughts"
+  favicon: images/fig.png
   navbar:
     left:
       - href: index.qmd
