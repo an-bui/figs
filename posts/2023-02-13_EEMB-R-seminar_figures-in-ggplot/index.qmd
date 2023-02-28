@@ -8,10 +8,10 @@ date: 2023-02-13
 categories: [ggplot, themes, lterdatasampler]
 citation: 
   url: https://an-bui.github.io/posts/2023-02-13_EEMB-R-seminar_figures-in-ggplot/ 
-image: crab_plot_and_hist_2023-02-28.jpg
+image: pwhittle-fiddler-crab.jpeg
 ---
 
-![Crabs are not ugly, but this plot is.](crab_plot_and_hist_2023-02-28.jpg){fig-alt="A two panel plot with a jitter plot on the left labelled A and a histogram on the right labelled B. It is atrociously ugly with too many colors."}
+![Plots can be ugly, but all crabs are beautiful.](pwhittle-fiddler-crab.jpeg){fig-alt="A fiddler crab shows off their huge claw."}
 
 ## Introduction
 I gave a workshop for EEMB's R seminar where the topic was ostensibly "publication-ready figures in ggplot". However, since I've been thinking about these things a lot, I wanted to talk a bit about design and why it matters. There are two major questions I ask myself when making a figure (or any kind of visual):  
@@ -110,7 +110,7 @@ Lastly, you can adjust any text on labels using the `labs()` function.
 
 ```{r theming, fig.height = 8, fig.width = 10}
 crab_plot <- ggplot(data = crab_data, aes(x = latitude, y = size)) +
-  geom_jitter(aes(color = site, shape = month), size = 3, alpha = 0.6) +
+  geom_point(aes(color = site, shape = month), size = 3, alpha = 0.6) +
   facet_wrap(~ month) +
   
   # scaling
@@ -235,7 +235,7 @@ crab_hist
 
 `patchwork` thinks similarly to `ggplot` in that it takes things in layers with `+` signs, but also takes `&`. To be honest, I can't remember the rules most of the time and I have to look them up.
 ```{r fig.height = 8, fig.width = 18}
-                       # this automatically recognizes that you're putting plots together (no function call!)
+# this automatically recognizes that you're putting plots together (no function call!)
 crab_plots_together <- crab_plot + crab_hist + 
   
   # plot_layout: anything having to do with the way plots are arranged

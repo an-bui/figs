@@ -228,8 +228,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="crab_plot_and_hist_2023-02-28.jpg" class="img-fluid figure-img" alt="A two panel plot with a jitter plot on the left labelled A and a histogram on the right labelled B. It is atrociously ugly with too many colors."></p>
-<p></p><figcaption class="figure-caption">Crabs are not ugly, but this plot is.</figcaption><p></p>
+<p><img src="pwhittle-fiddler-crab.jpeg" class="img-fluid figure-img" alt="A fiddler crab shows off their huge claw."></p>
+<p></p><figcaption class="figure-caption">Plots can be ugly, but all crabs are beautiful.</figcaption><p></p>
 </figure>
 </div>
 <section id="introduction" class="level2">
@@ -263,11 +263,11 @@ For me, 1) is sometimes the hardest part, but once I figure it out I feel pretty
 <pre><code># A tibble: 5 × 9
   date       latitude site   size air_temp air_temp_sd water_temp water_…¹ name 
   &lt;date&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
-1 2016-07-28     41.6 NB    15.8      12.2        9.48       17.5     7.86 Narr…
-2 2016-07-24     30   GTM   14.2      21.8        6.39       24.5     6.12 Guan…
-3 2016-08-12     42.2 BC    19.2      11.6        9.53       14.0     6.9  Bare…
-4 2016-08-08     39.6 JC    14.6      13.1        9.81       15.1     9.02 Jacq…
-5 2016-07-28     33.3 NIB    8.52     19.0        7.99       21.1     7.16 Nort…
+1 2016-07-28     41.6 NB     15.8     12.2        9.48       17.5     7.86 Narr…
+2 2016-07-25     41.9 CC     19.8     11.3        8.11       14.0     6.9  Cape…
+3 2016-07-28     41.6 NB     19.5     12.2        9.48       17.5     7.86 Narr…
+4 2016-07-29     34   ZI     13.0     18.6        8.40       20.2     7.65 Zeke…
+5 2016-08-09     41.3 CT     15.5     12.0        8.81       14.0     6.57 Sixp…
 # … with abbreviated variable name ¹​water_temp_sd</code></pre>
 </div>
 </div>
@@ -345,7 +345,7 @@ For me, 1) is sometimes the hardest part, but once I figure it out I feel pretty
 <p>Lastly, you can adjust any text on labels using the <code>labs()</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>crab_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> crab_data, <span class="fu">aes</span>(<span class="at">x =</span> latitude, <span class="at">y =</span> size)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color =</span> site, <span class="at">shape =</span> month), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> site, <span class="at">shape =</span> month), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> month) <span class="sc">+</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scaling</span></span>
@@ -473,7 +473,7 @@ For me, 1) is sometimes the hardest part, but once I figure it out I feel pretty
 </div>
 <p><code>patchwork</code> thinks similarly to <code>ggplot</code> in that it takes things in layers with <code>+</code> signs, but also takes <code>&amp;</code>. To be honest, I can’t remember the rules most of the time and I have to look them up.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># this automatically recognizes that you're putting plots together (no function call!)</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this automatically recognizes that you're putting plots together (no function call!)</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>crab_plots_together <span class="ot">&lt;-</span> crab_plot <span class="sc">+</span> crab_hist <span class="sc">+</span> </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot_layout: anything having to do with the way plots are arranged</span></span>
