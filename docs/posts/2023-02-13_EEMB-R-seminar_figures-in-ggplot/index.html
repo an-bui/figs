@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2023-02-13">
 <meta name="description" content="Don’t be afraid to make ugly things!">
 
-<title>Plot thoughts - Customizing themes in ggplot</title>
+<title>Figs - Customizing themes in ggplot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Plot thoughts</span>
+    <span class="navbar-title">Figs</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -151,6 +151,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../posts.html">Workshops</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resources.html">Resources</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -205,11 +208,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a>
   <ul class="collapse">
   <li><a href="#set-up" id="toc-set-up" class="nav-link" data-scroll-target="#set-up">Set up</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#ggplot-grammar" id="toc-ggplot-grammar" class="nav-link" data-scroll-target="#ggplot-grammar"><code>ggplot</code> grammar</a></li>
+  <li><a href="#aesthetics" id="toc-aesthetics" class="nav-link" data-scroll-target="#aesthetics">Aesthetics</a></li>
+  <li><a href="#adjustments-to-defaults" id="toc-adjustments-to-defaults" class="nav-link" data-scroll-target="#adjustments-to-defaults">Adjustments to defaults</a></li>
+  <li><a href="#extras" id="toc-extras" class="nav-link" data-scroll-target="#extras">Extras</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -236,8 +242,8 @@ For me, 1) is sometimes the hardest part, but once I figure it out I feel pretty
 <p>The problem with executing 2) is that often, making things “good” is often a barrier to making things at all. I used to struggle when presented with a new project because I didn’t want to make something bad (whatever that means). I could stand on a soapbox to talk about why our training (as people, as academics, whatever) makes this hard, but after lots of trial and error I’ve discovered that the best way of making things is exactly that: through trial and error. If you start out making something bad and you’re able to make it better, that means you’ve learned something along the way. This!! is good!! But that means you have to get over the initial step to make bad things.</p>
 <p>The materials for this workshop are written for when you’re in the phase of addressing 2) - you know what your message is, but you’re figuring out how best to convey it through color, shape, etc. There are plenty of options in R for you to do this, but I’ve found that <code>ggplot</code> is the most straight-forward way for me to wrap my mind around customizing plots. In the spirit of “just make bad things so you can learn to make good things”, I wrote this workshop so we could make the ugliest plot possible. I got my inspiration for this from Emily Riederer’s <a href="https://gist.github.com/emilyriederer/2bf4f67d7e198f8359b61706c82e42ee">ugliest ggplot gist</a>.</p>
 </section>
-<section id="materials" class="level2">
-<h2 class="anchored" data-anchor-id="materials">Materials</h2>
+<section id="code" class="level2">
+<h2 class="anchored" data-anchor-id="code">Code</h2>
 <section id="set-up" class="level3">
 <h3 class="anchored" data-anchor-id="set-up">Set up</h3>
 <p>I used data from the <a href="https://lter.github.io/lterdatasampler/index.html"><code>lterdatasampler</code> package</a>, which provides little data vignettes from various Long-Term Ecological Research (LTER) sites in the US. I chose the <a href="https://lter.github.io/lterdatasampler/articles/pie_crab_vignette.html">fiddler crab dataset</a> from the Plum Island Ecosystem LTER.</p>
@@ -257,11 +263,11 @@ For me, 1) is sometimes the hardest part, but once I figure it out I feel pretty
 <pre><code># A tibble: 5 × 9
   date       latitude site   size air_temp air_temp_sd water_temp water_…¹ name 
   &lt;date&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
-1 2016-07-25     41.9 CC     16.6     11.3        8.11       14.0     6.9  Cape…
-2 2016-07-25     41.9 CC     13.8     11.3        8.11       14.0     6.9  Cape…
-3 2016-08-07     39.1 DB     18.3     13.9        9.96       15.7     9.12 Dela…
-4 2016-08-01     34.7 RC     14.2     18.6        8.40       20.5     7.00 Rach…
-5 2016-08-12     42.2 BC     22.0     11.6        9.53       14.0     6.9  Bare…
+1 2016-08-12     42.2 BC     12.9     11.6        9.53       14.0     6.9  Bare…
+2 2016-08-08     39.6 JC     18.4     13.1        9.81       15.1     9.02 Jacq…
+3 2016-07-29     34   ZI     13.4     18.6        8.40       20.2     7.65 Zeke…
+4 2016-08-09     41.3 CT     13.5     12.0        8.81       14.0     6.57 Sixp…
+5 2016-08-09     37.2 VCR    14.6     15.0        8.41       17.6     8.43 Virg…
 # … with abbreviated variable name ¹​water_temp_sd</code></pre>
 </div>
 </div>
@@ -278,7 +284,7 @@ For me, 1) is sometimes the hardest part, but once I figure it out I feel pretty
 <p><code>ggplot</code> works in layers. The code to make a plot can vary, but always includes:<br>
 1. the <code>ggplot()</code> call: this tells R that you want to use the function <code>ggplot()</code> in <code>ggplot</code> to plot things.<br>
 2. <code>data</code> and <code>aesthetics</code> within that <code>ggplot()</code> call: tells <code>ggplot</code> to use a specific data frame any variables in that data frame that should be represented in the plot (for example, x- and y- axes, colors, shapes)<br>
-3. a <code>geom_()</code>: short for “geometry”, <code>geom_()</code> calls tell <code>ggplot</code> what kind of plot you want to make. Try <code>?geom_</code> in the console to see the different options.</p>
+3. a <code>geom_()</code>: short for “geometry”, <code>geom_()</code> calls tell <code>ggplot</code> what kind of plot you want to make.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1: call ggplot</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -292,13 +298,204 @@ For me, 1) is sometimes the hardest part, but once I figure it out I feel pretty
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/basic-ggplot-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/basic-ggplot-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="aesthetics" class="level3">
+<h3 class="anchored" data-anchor-id="aesthetics">Aesthetics</h3>
+<p><code>aes</code>thetics refer to anything in your data that you want rendered in your visualization: axes, colors, shapes, etc. When starting your <code>ggplot</code> object, you already have some calls in the <code>aes()</code> function: <code>x = latitude</code> and <code>y = size</code>. You can adjust the <code>aes</code>thetics of any variables you want: for example, if you wanted to color your points by site, you would include <code>color = site</code> in the <code>aes()</code> call. <strong>Important troubleshooting tip:</strong> if you <em>are</em> trying to color your points by site but it’s not working, double check that your <code>color</code> argument is actually in <code>aes()</code>. If you’ve specified color outside the <code>aes()</code>, then it’ll be applied independently of site.</p>
+<p>I’m adjusting the <code>aes()</code> for the following plot to make sure that each site has a different color and each month has a different shape.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> crab_data, <span class="fu">aes</span>(<span class="at">x =</span> latitude, <span class="at">y =</span> size)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># putting the aesthetics in here: color points by site, shape points by month</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> site, <span class="at">shape =</span> month), </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># anything that doesn't have to do with variables (like point size or transparency) goes outside the aesthetics</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># facet by month</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> month)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/aesthetics-adjustment-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="adjustments-to-defaults" class="level3">
+<h3 class="anchored" data-anchor-id="adjustments-to-defaults">Adjustments to defaults</h3>
+<section id="manual-selections" class="level4">
+<h4 class="anchored" data-anchor-id="manual-selections">Manual selections</h4>
+<p>You can adjust the colors, shapes, axis limits, etc. using one of the <code>scale_</code> functions (try <code>?scale_</code> to see the many options).</p>
+</section>
+<section id="themes" class="level4">
+<h4 class="anchored" data-anchor-id="themes">Themes</h4>
+<p>A lot of customization comes from <code>ggplot</code> themes. Theme elements deal with everything else in the plot that <em>doesn’t</em> have to do with the data (e.g.&nbsp;the plot background, grid, etc.). There are a lot of arguments that you can stack up in <code>theme()</code> (try <code>?theme()</code> to see all of them), but they generally fall into a few categories: 1. axes, 2. legends, 3. panels, 4, plots, 5, strips. There are built-in themes in <code>ggplot</code> that can make your plot look pretty good right away, but playing around with theme elements yourself is a great way of getting the exact plot you want.</p>
+<p>Additionally, every argument takes a function modifying the <em>elements</em>: 1. lines, 2. rectangles (more broadly, shapes), 3. text. See the help pages for these functions (e.g.&nbsp;<code>?element_text()</code>) to figure out what you can alter about each element - there’s a lot!</p>
+</section>
+<section id="annotations" class="level4">
+<h4 class="anchored" data-anchor-id="annotations">Annotations</h4>
+<p>Annotations are useful when you want to point something out on a plot. The function is <code>annotate()</code>, which adds an annotation layer onto your plot.</p>
+</section>
+<section id="labels" class="level4">
+<h4 class="anchored" data-anchor-id="labels">Labels</h4>
+<p>Lastly, you can adjust any text on labels using the <code>labs()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>crab_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> crab_data, <span class="fu">aes</span>(<span class="at">x =</span> latitude, <span class="at">y =</span> size)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color =</span> site, <span class="at">shape =</span> month), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> month) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scaling</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># changing point colors + assigning each to a site</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"BC"</span> <span class="ot">=</span> <span class="st">"#687f47"</span>, <span class="st">"CC"</span> <span class="ot">=</span> <span class="st">"#268e86"</span>, <span class="st">"CT"</span> <span class="ot">=</span> <span class="st">"#373f1f"</span>, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"DB"</span> <span class="ot">=</span> <span class="st">"#03010a"</span>, <span class="st">"GTM"</span> <span class="ot">=</span> <span class="st">"#447c49"</span>, <span class="st">"JC"</span> <span class="ot">=</span> <span class="st">"#2e2747"</span>, </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"NB"</span> <span class="ot">=</span> <span class="st">"#7f696a"</span>, <span class="st">"NIB"</span> <span class="ot">=</span> <span class="st">"#777a76"</span>, <span class="st">"PIE"</span> <span class="ot">=</span> <span class="st">"#a87445"</span>, </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"RC"</span> <span class="ot">=</span> <span class="st">"#aef23a"</span>, <span class="st">"SI"</span> <span class="ot">=</span> <span class="st">"#e05357"</span>, <span class="st">"VCR"</span> <span class="ot">=</span> <span class="st">"#087f0c"</span>, </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"ZI"</span> <span class="ot">=</span> <span class="st">"#010201"</span>)) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># changing the point shapes</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"7"</span> <span class="ot">=</span> <span class="dv">21</span>, <span class="st">"8"</span> <span class="ot">=</span> <span class="dv">18</span>)) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># changing x and y axis limits and breaks</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">29</span>, <span class="dv">45</span>)) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">n.breaks =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme() call</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># panel: anything having to do with the main area</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">'#B5C7F4'</span>, <span class="at">color =</span> <span class="st">'#F761F9'</span>, <span class="at">linewidth =</span> <span class="dv">5</span>),</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">"#87Bf18"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#FF21E1"</span>, <span class="at">linetype =</span> <span class="dv">6</span>),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#2D65BF"</span>, <span class="at">linetype =</span> <span class="dv">4</span>),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot: anything having to do with the area around the panel</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#98FC6A"</span>),</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="fl">0.25</span>, <span class="at">family =</span> <span class="st">"Helvetica"</span>),</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">hjust =</span> <span class="fl">0.75</span>, <span class="at">color =</span> <span class="st">"#2A23A3"</span>, <span class="at">family =</span> <span class="st">"Times New Roman"</span>),</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">angle =</span> <span class="dv">25</span>, <span class="at">family =</span> <span class="st">"Comic Sans MS"</span>),</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>), <span class="st">"cm"</span>), </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># axes: anything having to do with the x- and y- axes</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold.italic"</span>, <span class="at">color =</span> <span class="st">"#9254D3"</span>),</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Arial"</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">hjust =</span> <span class="fl">0.25</span>),</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># note that axis.text options from above are inherited</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x.bottom =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">180</span>),</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># strips: anything having to do with the facet titles</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#C9E886"</span>),</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#854EED"</span>, <span class="at">family =</span> <span class="st">"Garamond"</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># legend: anything having to do with the legend</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#DC86E8"</span>), </span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.key =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#C2F774"</span>),</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.justification =</span> <span class="st">"left"</span>,</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"serif"</span>, <span class="at">color =</span> <span class="st">"#B452F9"</span>),</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#30F92C"</span>, <span class="at">family =</span> <span class="st">"mono"</span>)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># annotate: big gap</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">32</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="at">label =</span> <span class="st">"big gap"</span>, <span class="at">color =</span> <span class="st">"#CC107D"</span>) <span class="sc">+</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>  <span class="co"># labs: anything having to do with labels</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Crabs!"</span>,</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"I love crabs"</span>,</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Latitude (low to high)"</span>,</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Size (small to big)"</span>,</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Do you love crabs?"</span>,</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"I love colors!"</span>) </span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>crab_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/theming-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="extras" class="level3">
+<h3 class="anchored" data-anchor-id="extras">Extras</h3>
+<section id="adding-images-to-plots" class="level4">
+<h4 class="anchored" data-anchor-id="adding-images-to-plots">Adding images to plots</h4>
+<p>There are many ways of adding images to plots. The package I’ll use is <code>magick</code>. This is a round-about way of getting an image in, but allows you to be flexible with your image types (gifs, etc.). I’ll just save this as an object called <code>crab_image</code> to use later.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use magick::image_read() to read in the jpeg</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>crab_image <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">"pwhittle-fiddler-crab.jpeg"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># turn this into a raster</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.raster</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="putting-plots-together" class="level4">
+<h4 class="anchored" data-anchor-id="putting-plots-together">Putting plots together</h4>
+<p>There are a couple packages you can use to put plots together like panels in a figure. The big ones are <code>patchwork</code> and <code>cowplot</code>. Try each of them out and see what you like, but we’ll be using <code>patchwork</code> today.</p>
+<p>Just to demonstrate how this works, I’m going to make up a histogram of crab sizes. The code is annotated if you’re interested in the customized aesthetics, but they’re not important for this demonstration.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for a histogram, you don't need y in your aesthetic call</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>crab_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(crab_data, <span class="fu">aes</span>(<span class="at">x =</span> size)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># telling ggplot that you want to plot a histogram</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="fu">aes</span>(<span class="at">fill =</span> site)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># some scaling</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">6.5</span>, <span class="at">to =</span> <span class="fl">24.5</span>, <span class="at">by =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">45</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"BC"</span> <span class="ot">=</span> <span class="st">"#7D9084"</span>, <span class="st">"CC"</span> <span class="ot">=</span> <span class="st">"#8B9FD9"</span>, <span class="st">"CT"</span> <span class="ot">=</span> <span class="st">"#DDD5D5"</span>, </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"DB"</span> <span class="ot">=</span> <span class="st">"#CADDA5"</span>, <span class="st">"GTM"</span> <span class="ot">=</span> <span class="st">"#DF697F"</span>, <span class="st">"JC"</span> <span class="ot">=</span> <span class="st">"#E09E5F"</span>, </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"NB"</span> <span class="ot">=</span> <span class="st">"#7F56DB"</span>, <span class="st">"NIB"</span> <span class="ot">=</span> <span class="st">"#D8DF5D"</span>, <span class="st">"PIE"</span> <span class="ot">=</span> <span class="st">"#DC53D3"</span>, </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"RC"</span> <span class="ot">=</span> <span class="st">"#84D9DF"</span>, <span class="st">"SI"</span> <span class="ot">=</span> <span class="st">"#D798D1"</span>, <span class="st">"VCR"</span> <span class="ot">=</span> <span class="st">"#77E2A8"</span>, </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"ZI"</span> <span class="ot">=</span> <span class="st">"#76E762"</span>)) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># some theme-ing</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">'#B6E45F'</span>, <span class="at">color =</span> <span class="st">'#DABA84'</span>, <span class="at">linewidth =</span> <span class="dv">5</span>),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#E16B86"</span>, <span class="at">linetype =</span> <span class="dv">2</span>),</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#B49CD2"</span>, <span class="at">linetype =</span> <span class="dv">3</span>),</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#A0C8E8"</span>),</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#8ADDA8"</span>),</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>), <span class="st">"cm"</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># some labeling</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Crab sizes (small to big)"</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of crabs (few to lots)"</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"This is a crab histogram"</span>,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Places"</span>) <span class="sc">+</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adding the crab image</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_raster</span>(crab_image, <span class="at">xmin =</span> <span class="dv">8</span>, <span class="at">xmax =</span> <span class="dv">10</span>, <span class="at">ymin =</span> <span class="dv">30</span>, <span class="at">ymax =</span> <span class="dv">35</span>) <span class="sc">+</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># annotating the plot with the photographer credit</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">9</span>, <span class="at">y =</span> <span class="dv">29</span>, <span class="at">label =</span> <span class="st">"PWhittle, iNaturalist"</span>, <span class="at">size =</span> <span class="dv">3</span>)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>crab_hist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p><code>patchwork</code> thinks similarly to <code>ggplot</code> in that it takes things in layers with <code>+</code> signs, but also takes <code>&amp;</code>. To be honest, I can’t remember the rules most of the time and I have to look them up.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># this automatically recognizes that you're putting plots together (no function call!)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>crab_plots_together <span class="ot">&lt;-</span> crab_plot <span class="sc">+</span> crab_hist <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot_layout: anything having to do with the way plots are arranged</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># widths takes a ratio: the panel ratio will be 2:1 left:right</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot_annotation: anything having to do with annotations</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"A"</span>, <span class="at">tag_suffix =</span> <span class="st">")"</span>) <span class="sc">&amp;</span> <span class="co"># annotating them with panel letters</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># patchwork has its own theme options!</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>)) <span class="co"># changing the size of the annotations</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># display our beautiful plot  </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>crab_plots_together</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="1728"></p>
+</div>
+</div>
+<p>There you have it! Go forth and make ugly plots!</p>
 
 
+</section>
 </section>
 </section>
 

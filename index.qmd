@@ -1,5 +1,12 @@
 ---
-title: "About this page"
+title: "Figs"
 ---
 
-I could talk about data visualization all day, so I've put everything I've written and learned from here as a central repository.
+# About
+I have a lot of scattered thoughts about data visualization, and this site is a repository for those thoughts. I've compiled posts summarizing data visualization workshops I've led and resources that I don't want to lose track of.
+
+# What kinds of figs?
+I love Mission figs. I hated figs as a kid so I didn't appreciate the fig tree we had in the backyard - the tree is gone now, so I'm sad I didn't eat all the figs I could back then. My love for figs has grown as an adult and hasn't waned.
+
+# Attribution
+The fig favicon is from [smallikeart](https://www.flaticon.com/authors/smalllikeart).
