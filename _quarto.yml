@@ -12,7 +12,10 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: 
+      - minty
+      - customstyles.scss
+    mainfont: Nanum Myeongjo
     css: styles.css
     toc: true
 
