@@ -1,7 +1,5 @@
 ---
-title: "figs"
+title: "About this page"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+I could talk about data visualization all day, so I've put everything I've written and learned from here as a central repository.

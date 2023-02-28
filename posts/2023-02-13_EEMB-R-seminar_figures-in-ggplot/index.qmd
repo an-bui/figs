@@ -1,0 +1,88 @@
+---
+title: "Customizing themes in `ggplot`"
+description: "Don't be afraid to make ugly things!"
+author:
+  - name: An Bui
+    url: https://an-bui.com
+date: 2023-02-13
+categories: [ggplot, themes, lterdatasampler]
+citation: 
+  url: https://an-bui.github.io/posts/2023-02-13_EEMB-R-seminar_figures-in-ggplot/ 
+image: crab_plot_and_hist_2023-02-28.jpg
+---
+
+![Crabs are not ugly, but this plot is.](crab_plot_and_hist_2023-02-28.jpg){fig-alt="A two panel plot with a jitter plot on the left labelled A and a histogram on the right labelled B. It is atrociously ugly with too many colors."}
+
+## Introduction
+I gave a workshop for EEMB's R seminar where the topic was ostensibly "publication-ready figures in ggplot". However, since I've been thinking about these things a lot, I wanted to talk a bit about design and why it matters. There are two major questions I ask myself when making a figure (or any kind of visual):  
+1. What is the message?  
+2. How do I convey the message?  
+For me, 1) is sometimes the hardest part, but once I figure it out I feel pretty set. But 2) takes into account design and requires me to think critically about the audience, the medium in which I am presenting this message (e.g. in a paper, poster, talk), and the way I design a plot to wrap that all up.  
+
+For me, addressing 2) means I share whatever bad thing I've made to get feedback on how to make it better. **This is a very important step!** No matter how much I _think_ something is good, I am ultimately not the best judge of how the message is conveyed - an audience is. I am very lucky to have friends and colleagues who will tell me gently but honestly that a figure is trash. I am very grateful for these people. After many iterations, I will hopefully come up with something I am happy with.  
+
+The problem with executing 2) is that often, making things "good" is often a barrier to making things at all. I used to struggle when presented with a new project because I didn't want to make something bad (whatever that means). I could stand on a soapbox to talk about why our training (as people, as academics, whatever) makes this hard, but after lots of trial and error I've discovered that the best way of making things is exactly that: through trial and error. If you start out making something bad and you're able to make it better, that means you've learned something along the way. This!! is good!! But that means you have to get over the initial step to make bad things.    
+
+The materials for this workshop are written for when you're in the phase of addressing 2) - you know what your message is, but you're figuring out how best to convey it through color, shape, etc. There are plenty of options in R for you to do this, but I've found that `ggplot` is the most straight-forward way for me to wrap my mind around customizing plots. In the spirit of "just make bad things so you can learn to make good things", I wrote this workshop so we could make the ugliest plot possible. I got my inspiration for this from Emily Riederer's [ugliest ggplot gist](https://gist.github.com/emilyriederer/2bf4f67d7e198f8359b61706c82e42ee). 
+
+## Materials 
+
+### Set up
+
+I used data from the [`lterdatasampler` package](https://lter.github.io/lterdatasampler/index.html), which provides little data vignettes from various Long-Term Ecological Research (LTER) sites in the US. I chose the [fiddler crab dataset](https://lter.github.io/lterdatasampler/articles/pie_crab_vignette.html) from the Plum Island Ecosystem LTER. 
+
+```{r libraries, warning = FALSE, message = FALSE}
+library(tidyverse) # for general cleaning, ggplot
+library(patchwork) # for putting multipanel plots together
+library(magick) # for making images vectors
+library(lubridate) # for working with dates
+library(lterdatasampler) # data package
+```
+
+### Data
+
+This is a data set of crab sizes (column size) from Summer 2016 at 13 different marshes spanning 12 degrees latitude. Here's a sample:
+
+```{r crab-data-preview, echo = FALSE}
+pie_crab %>% 
+  slice_sample(n = 5)
+```
+
+I made some adjustments because I wanted to plot things by month (for extra chaos).
+
+```{r month-column}
+crab_data <- pie_crab %>% 
+  # extracting month from the date column using lubridate::month()
+  # also making this a factor (instead of numeric) using as.factor()
+  mutate(month = as.factor(month(date)))
+```
+
+### `ggplot` grammar
+
+`ggplot` works in layers. The code to make a plot can vary, but always includes:  
+1. the `ggplot()` call: this tells R that you want to use the function `ggplot()` in `ggplot` to plot things.  
+2. `data` and `aesthetics` within that `ggplot()` call: tells `ggplot` to use a specific data frame any variables in that data frame that should be represented in the plot (for example, x- and y- axes, colors, shapes)  
+3. a `geom_()`: short for "geometry", `geom_()` calls tell `ggplot` what kind of plot you want to make. Try `?geom_` in the console to see the different options.  
+
+```{r basic-ggplot, fig.align = "center", fig.height = 6, fig.width = 8}
+# step 1: call ggplot
+ggplot(
+  
+  # step 2: specify the data and the aesthetics
+  # plotting latitude on the x-axis and crab size on the y-axis
+  data = crab_data, aes(x = latitude, y = size)) +
+  
+  # step 3: specify a geom - in this case, we're creating a scatter plot
+  geom_point()
+```
+
+
+
+
+
+
+
+
+
+
+

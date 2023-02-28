@@ -3,17 +3,18 @@ project:
   output-dir: docs
 
 website:
-  title: "figs"
+  title: "Plot thoughts"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: posts.qmd
+        text: Workshops
 
 format:
   html:
     theme: 
-      - minty
+      - lux
       - customstyles.scss
     mainfont: Nanum Myeongjo
     css: styles.css
