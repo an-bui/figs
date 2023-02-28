@@ -19,7 +19,7 @@ I gave a workshop for EEMB's R seminar where the topic was ostensibly "publicati
 2. How do I convey the message?  
 For me, 1) is sometimes the hardest part, but once I figure it out I feel pretty set. But 2) takes into account design and requires me to think critically about the audience, the medium in which I am presenting this message (e.g. in a paper, poster, talk), and the way I design a plot to wrap that all up.  
 
-For me, addressing 2) means I share whatever bad thing I've made to get feedback on how to make it better. **This is a very important step!** No matter how much I _think_ something is good, I am ultimately not the best judge of how the message is conveyed - an audience is. I am very lucky to have friends and colleagues who will tell me gently but honestly that a figure is trash. I am very grateful for these people. After many iterations, I will hopefully come up with something I am happy with.  
+Addressing 2) means I share whatever bad thing I've made to get feedback on how to make it better. **This is a very important step!** No matter how much I _think_ something is good, I am ultimately not the best judge of how the message is conveyed: an audience is. I am very lucky to have friends and colleagues who will tell me gently but honestly that a figure is trash. I am very grateful for these people. After many iterations, I will hopefully come up with something I am happy with.  
 
 The problem with executing 2) is that often, making things "good" is often a barrier to making things at all. I used to struggle when presented with a new project because I didn't want to make something bad (whatever that means). I could stand on a soapbox to talk about why our training (as people, as academics, whatever) makes this hard, but after lots of trial and error I've discovered that the best way of making things is exactly that: through trial and error. If you start out making something bad and you're able to make it better, that means you've learned something along the way. This!! is good!! But that means you have to get over the initial step to make bad things.    
 
@@ -183,7 +183,7 @@ crab_plot
 
 There are many ways of adding images to plots. The package I'll use is `magick`. This is a round-about way of getting an image in, but allows you to be flexible with your image types (gifs, etc.). I'll just save this as an object called `crab_image` to use later.
 
-```{r}
+```{r crab-magick}
 # use magick::image_read() to read in the jpeg
 crab_image <- image_read("pwhittle-fiddler-crab.jpeg") %>% 
   # turn this into a raster
@@ -196,7 +196,7 @@ There are a couple packages you can use to put plots together like panels in a f
 
 Just to demonstrate how this works, I'm going to make up a histogram of crab sizes. The code is annotated if you're interested in the customized aesthetics, but they're not important for this demonstration.
 
-```{r fig.height = 8, fig.width = 10}
+```{r crab-histogram, fig.height = 8, fig.width = 10}
 # for a histogram, you don't need y in your aesthetic call
 crab_hist <- ggplot(crab_data, aes(x = size)) +
   # telling ggplot that you want to plot a histogram
@@ -234,7 +234,7 @@ crab_hist
 ```
 
 `patchwork` thinks similarly to `ggplot` in that it takes things in layers with `+` signs, but also takes `&`. To be honest, I can't remember the rules most of the time and I have to look them up.
-```{r fig.height = 8, fig.width = 18}
+```{r crab-patchwork, fig.height = 8, fig.width = 18}
 # this automatically recognizes that you're putting plots together (no function call!)
 crab_plots_together <- crab_plot + crab_hist + 
   
@@ -254,5 +254,7 @@ crab_plots_together
 
 There you have it! Go forth and make ugly plots!
 
+## Workshop repository
 
+If you're interested in the code and/or slides for this workshop, check out the [repository](https://github.com/an-bui/figures-in-ggplot)!
 

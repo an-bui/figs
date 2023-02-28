@@ -7,8 +7,6 @@ website:
   favicon: images/fig.png
   navbar:
     left:
-      - href: index.qmd
-        text: Home
       - href: posts.qmd
         text: Workshops
       - href: resources.qmd
