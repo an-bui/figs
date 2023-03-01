@@ -8,10 +8,10 @@ date: 2023-02-13
 categories: [ggplot, themes, lterdatasampler]
 citation: 
   url: https://an-bui.github.io/figs/posts/2023-02-13_EEMB-R-seminar_figures-in-ggplot/ 
-image: pwhittle-fiddler-crab.jpeg
+image: peggyo-fiddler-crab.jpeg
 ---
 
-[![Plots can be ugly, but all crabs are beautiful. Photo by PWhittle, iNaturalist.](pwhittle-fiddler-crab.jpeg){fig-alt="A fiddler crab shows off their huge claw."}](https://www.inaturalist.org/observations/117767928)
+[![Plots can be ugly, but all crabs are beautiful. Photo by peggyo, iNaturalist.](peggyo-fiddler-crab.jpeg){fig-alt="A fiddler crab shows off their huge claw."}](https://www.inaturalist.org/observations/97211272)
 
 ## Introduction
 I gave a workshop for EEMB's R seminar where the topic was ostensibly "publication-ready figures in ggplot". However, since I've been thinking about these things a lot, I wanted to talk a bit about design and why it matters. There are two major questions I ask myself when making a figure (or any kind of visual):  
@@ -185,7 +185,7 @@ There are many ways of adding images to plots. The package I'll use is `magick`.
 
 ```{r crab-magick}
 # use magick::image_read() to read in the jpeg
-crab_image <- image_read("pwhittle-fiddler-crab.jpeg") %>% 
+crab_image <- image_read("peggyo-fiddler-crab.jpeg") %>% 
   # turn this into a raster
   as.raster()
 ```
@@ -228,7 +228,7 @@ crab_hist <- ggplot(crab_data, aes(x = size)) +
   # adding the crab image
   annotation_raster(crab_image, xmin = 8, xmax = 10, ymin = 30, ymax = 35) +
   # annotating the plot with the photographer credit
-  annotate(geom = "text", x = 9, y = 29, label = "PWhittle, iNaturalist", size = 3)
+  annotate(geom = "text", x = 9, y = 29, label = "peggyo, iNaturalist", size = 3)
   
 crab_hist
 ```
